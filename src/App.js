@@ -17,6 +17,7 @@ const App = () => {
 	useEffect(() => {
 		StatusBar.setBackgroundColor(Color.yellow)
 		StatusBar.setBarStyle("light-content")
+		search()
 	}, [])
 
 	const search = async () => {
