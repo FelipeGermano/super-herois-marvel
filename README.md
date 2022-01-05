@@ -10,3 +10,5 @@
 
 # COMPLEMENTAR:
 - Crie um módulo nativo (Android ou iOS) contendo um método que recebe um número como parâmetro e retorne a string: “Total de {numero} super-heróis”. Utilize esse método no aplicativo passando o total de super-heróis retornados da API.
+
+![marvel](https://user-images.githubusercontent.com/26907971/148226784-ffdab93e-3664-4968-8c7c-8ac5cdf3f82d.gif)
