@@ -6,13 +6,14 @@ import Styles from './Styles';
 import Color from './Config/Color';
 import Loading from './Components/Loading/Index'
 import Lista from './Components/Lista/Index'
+import RNNativeCountHeroesModule from './Components/NativeModule/CountHeroes'
 
 const App = () => {
 
 	const [load, setLoad] = useState(false)
 	const [textSearch, setTextSearch] = useState('a')
 	const [dataHerois, setDataHerois] = useState([])
-	const [totalHerois, setTotalHerois] = useState(0)
+	const [totalHerois, setTotalHerois] = useState('')
 
 	useEffect(() => {
 		StatusBar.setBackgroundColor(Color.yellow)
@@ -26,7 +27,7 @@ const App = () => {
 				Keyboard.dismiss()
 				setLoad(true)
 				let response = await getCharactersMarvel(textSearch);
-				setTotalHerois(response.length)
+				setTotalHerois(RNNativeCountHeroesModule.countHeroes(response.length))
 				setDataHerois(response)
 			}
 		} catch (error) {
@@ -52,7 +53,7 @@ const App = () => {
 					</TouchableOpacity>
 				</View>
 				<View style={Styles.containerResult}>
-					<Text style={Styles.textResult}>Total de {totalHerois} super-heróis</Text>
+					<Text style={Styles.textResult}>{totalHerois}</Text>
 				</View>
 				{ load ? <Loading /> : <Lista data={dataHerois} load={load}/> }
 			</View>
