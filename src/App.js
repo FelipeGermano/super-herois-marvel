@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, TouchableOpacity, StatusBar, View, Text, TextInput, Alert } from 'react-native';
+import { SafeAreaView, TouchableOpacity, StatusBar, View, Text, TextInput, Alert, Keyboard } from 'react-native';
 
 import { getCharactersMarvel } from './Service/Request'
 import Styles from './Styles';
@@ -11,6 +11,8 @@ const App = () => {
 
 	const [load, setLoad] = useState(false)
 	const [textSearch, setTextSearch] = useState('a')
+	const [dataHerois, setDataHerois] = useState([])
+	const [totalHerois, setTotalHerois] = useState(0)
 
 	useEffect(() => {
 		StatusBar.setBackgroundColor(Color.yellow)
@@ -20,9 +22,11 @@ const App = () => {
 	const search = async () => {
 		try {
 			if(textSearch.trim() != ''){
+				Keyboard.dismiss()
 				setLoad(true)
 				let response = await getCharactersMarvel(textSearch);
-				console.log(textSearch, response)
+				setTotalHerois(response.length)
+				setDataHerois(response)
 			}
 		} catch (error) {
 			Alert.alert("Não foi possivel executar a pesquisa");
@@ -46,7 +50,10 @@ const App = () => {
 						<Text style={Styles.textButtonSearch}>Procurar</Text>
 					</TouchableOpacity>
 				</View>
-				{ load ? <Loading /> : <Lista /> }
+				<View style={Styles.containerResult}>
+					<Text style={Styles.textResult}>Total de {totalHerois} super-heróis</Text>
+				</View>
+				{ load ? <Loading /> : <Lista data={dataHerois} load={load}/> }
 			</View>
     	</SafeAreaView>
   	);
